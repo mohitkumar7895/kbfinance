@@ -156,7 +156,7 @@ export default function ContactPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="service">Service Required *</Label>
-                  <Select onValueChange={(val) => val && setValue("service", val)} required>
+                  <Select onValueChange={(val: string | null) => { if (val) setValue("service", val); }} required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
