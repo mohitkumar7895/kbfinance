@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import EnquiryModal from "./EnquiryModal";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -53,18 +54,9 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex min-w-0 items-center gap-2.5">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#D4AF37] text-sm font-bold text-[#0A2540]">
-              KB
-            </span>
-            <span
-              className={`truncate text-sm font-bold tracking-tight sm:text-base ${
-                transparent ? "text-white" : "text-[#0A2540]"
-              }`}
-            >
-              Financial <span className="text-[#D4AF37]">Services</span>
-            </span>
-          </Link>
+          <a href="https://kbfinance.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex min-w-0 items-center gap-2.5">
+            <Image src="/logo.png" alt="KB Financial Services" width={80} height={80} />
+          </a>
 
           <nav className="hidden items-center gap-6 lg:flex xl:gap-7">
             {navLinks.map((link) => {
