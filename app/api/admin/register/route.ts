@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
-import { ensureAuthTables } from "@/lib/auth-db";
+import { ensureAuthTables, dbErrorMessage } from "@/lib/auth-db";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +59,6 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("Admin registration error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ error: dbErrorMessage(error) }, { status: 500 });
   }
 }
