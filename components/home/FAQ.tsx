@@ -36,7 +36,7 @@ export default function FAQ() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion className="w-full">
             {faqs.map((faq, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border-b border-gray-200 py-2">
                 <AccordionTrigger className="text-left text-lg font-semibold text-[#0A2540] hover:text-[#1952B3] hover:no-underline">
