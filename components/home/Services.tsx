@@ -41,7 +41,7 @@ export default function Services({ services }: { services: any[] }) {
                   "{service.subtitle}"
                 </p>
                 <ul className="mb-8 space-y-2.5 flex-grow">
-                  {service.bullets.map((bullet: string, i: number) => (
+                  {(service.bullets || []).map((bullet: string, i: number) => (
                     <li key={i} className="flex items-start text-sm text-[#0A2540]/90">
                       <span className="mr-2.5 text-[#0A2540] text-[8px] mt-1.5">●</span>
                       {bullet}

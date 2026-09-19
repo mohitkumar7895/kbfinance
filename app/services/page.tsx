@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import EnquiryModal from "@/components/layout/EnquiryModal";
-import pool from "@/lib/db";
+import { getServices } from "@/lib/services";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Services | K B Financial Services",
@@ -9,16 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  let services = [];
-  try {
-    const [rows] = await pool.query('SELECT * FROM services ORDER BY created_at ASC');
-    services = (rows as any[]).map(row => ({
-      ...row,
-      bullets: typeof row.bullets === 'string' ? JSON.parse(row.bullets) : row.bullets
-    }));
-  } catch (err) {
-    console.error("Failed to fetch services:", err);
-  }
+  const services = await getServices();
 
   return (
     <div className="bg-[#F8FAFC]">
@@ -58,7 +51,7 @@ export default async function ServicesPage() {
                     "{service.subtitle}"
                   </p>
                   <ul className="mb-10 space-y-3 flex-grow">
-                    {service.bullets.map((bullet: string, i: number) => (
+                    {(service.bullets || []).map((bullet: string, i: number) => (
                       <li key={i} className="flex items-start text-base text-[#0A2540]/90">
                         <span className="mr-3 text-[#0A2540] text-[10px] mt-2">●</span>
                         {bullet}

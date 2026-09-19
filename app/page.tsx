@@ -8,19 +8,12 @@ import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 import MeetFounder from "@/components/home/MeetFounder";
 import OurPartners from "@/components/home/OurPartners";
-import pool from "@/lib/db";
+import { getServices } from "@/lib/services";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  let services = [];
-  try {
-    const [rows] = await pool.query('SELECT * FROM services ORDER BY created_at ASC');
-    services = (rows as any[]).map(row => ({
-      ...row,
-      bullets: typeof row.bullets === 'string' ? JSON.parse(row.bullets) : row.bullets
-    }));
-  } catch (err) {
-    console.error("Failed to fetch services for home:", err);
-  }
+  const services = await getServices();
 
   return (
     <>
