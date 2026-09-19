@@ -3,15 +3,21 @@ import mysql from "mysql2/promise";
 
 dns.setDefaultResultOrder("ipv4first");
 
-const host = process.env.DB_HOST || "localhost";
-const useSsl = process.env.DB_SSL === "true";
+function env(name: string, fallback = "") {
+  const raw = process.env[name];
+  if (raw == null) return fallback;
+  return String(raw).trim().replace(/^['"]+|['"]+$/g, "");
+}
+
+const host = env("DB_HOST", "localhost");
+const useSsl = env("DB_SSL") === "true";
 
 const pool = mysql.createPool({
   host,
-  port: Number(process.env.DB_PORT) || 3306,
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "kb_financial",
+  port: Number(env("DB_PORT", "3306")) || 3306,
+  user: env("DB_USER", "root"),
+  password: env("DB_PASSWORD", ""),
+  database: env("DB_NAME", "kb_finance"),
   waitForConnections: true,
   connectionLimit: 1,
   maxIdle: 1,

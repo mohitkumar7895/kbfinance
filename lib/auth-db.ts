@@ -92,7 +92,7 @@ export function dbErrorMessage(error: unknown) {
     return "Database connection failed. DB_HOST must be a public MySQL host (not localhost), and remote access must be allowed.";
   }
   if (err?.code === "ER_ACCESS_DENIED_ERROR") {
-    return "Database login failed. Check DB_USER and DB_PASSWORD on Vercel.";
+    return err.message || "Database login failed. Vercel is reaching MySQL, but this user is not allowed from Vercel IPs. Create a remote MySQL user with host % — local root@localhost will not work.";
   }
   if (err?.code === "ER_BAD_DB_ERROR") {
     return "Database name not found. Check DB_NAME on Vercel.";
