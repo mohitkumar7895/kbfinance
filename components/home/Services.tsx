@@ -34,6 +34,7 @@ export default function Services({ services }: { services: any[] }) {
                     alt={service.title}
                     fill
                     unoptimized={service.image?.startsWith("http")}
+                    className="object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               </div>

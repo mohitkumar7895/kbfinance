@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import EnquiryModal from "@/components/layout/EnquiryModal";
 import { getServices } from "@/lib/services";
+import { getSiteContent } from "@/lib/siteContent";
 
 export const dynamic = "force-dynamic";
 
@@ -12,15 +13,16 @@ export const metadata: Metadata = {
 
 export default async function ServicesPage() {
   const services = await getServices();
+  const content = await getSiteContent();
 
   return (
     <div className="bg-[#F8FAFC]">
       {/* Hero Section */}
       <section className="bg-[#0A2540] text-white py-20 relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Financial Services</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">{content.services.pageTitle}</h1>
           <p className="text-xl text-blue-200 max-w-2xl mx-auto">
-            Helping You Build Wealth & Security with comprehensive solutions.
+            {content.services.pageSubtitle}
           </p>
         </div>
       </section>
@@ -41,6 +43,7 @@ export default async function ServicesPage() {
                       src={service.image}
                       alt={service.title}
                       fill
+                      unoptimized={service.image?.startsWith("http")}
                       className="object-cover transition-transform duration-500 hover:scale-105"
                     />
                   </div>

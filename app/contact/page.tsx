@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useSiteContent } from "@/components/content/SiteContentProvider";
 
 type FormData = {
   name: string;
@@ -22,6 +23,7 @@ type FormData = {
 
 export default function ContactPage() {
   const { toast } = useToast();
+  const { contact } = useSiteContent();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm<FormData>();
 
@@ -60,9 +62,9 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="bg-[#0A2540] text-white py-20 relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">{contact.pageTitle}</h1>
           <p className="text-xl text-blue-200 max-w-2xl mx-auto">
-            Get in touch with our experts today. We're here to answer your questions and guide you to the right financial solutions.
+            {contact.pageSubtitle}
           </p>
         </div>
       </section>
@@ -73,9 +75,9 @@ export default function ContactPage() {
             
             {/* Contact Info */}
             <div>
-              <h2 className="text-3xl font-bold text-[#0A2540] mb-8">Get In Touch</h2>
+              <h2 className="text-3xl font-bold text-[#0A2540] mb-8">{contact.heading}</h2>
               <p className="text-gray-600 mb-12 text-lg">
-                Whether you have a question about our services, need assistance with an application, or want to explore financial options, our team is ready to help.
+                {contact.intro}
               </p>
 
               <div className="space-y-8">
@@ -84,8 +86,8 @@ export default function ContactPage() {
                     <MapPin className="w-6 h-6 text-[#1952B3]" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#0A2540] mb-1">Office Address</h3>
-                    <p className="text-gray-600">1st Floor, National Market, Andhrapool<br/>Varanasi, U.P. – 221002</p>
+                    <h3 className="font-bold text-[#0A2540] mb-1">{contact.addressLabel}</h3>
+                    <p className="text-gray-600 whitespace-pre-line">{contact.address}</p>
                   </div>
                 </div>
 
@@ -94,8 +96,8 @@ export default function ContactPage() {
                     <Phone className="w-6 h-6 text-[#1952B3]" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#0A2540] mb-1">Phone Number</h3>
-                    <p className="text-gray-600">7081000063</p>
+                    <h3 className="font-bold text-[#0A2540] mb-1">{contact.phoneLabel}</h3>
+                    <p className="text-gray-600">{contact.phone}</p>
                   </div>
                 </div>
 
@@ -104,8 +106,8 @@ export default function ContactPage() {
                     <Mail className="w-6 h-6 text-[#1952B3]" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#0A2540] mb-1">Email Address</h3>
-                    <p className="text-[#1952B3]">FINANCESERVICESKB@GMAIL.COM</p>
+                    <h3 className="font-bold text-[#0A2540] mb-1">{contact.emailLabel}</h3>
+                    <p className="text-[#1952B3]">{contact.email}</p>
                   </div>
                 </div>
 
@@ -114,8 +116,8 @@ export default function ContactPage() {
                     <Clock className="w-6 h-6 text-[#1952B3]" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#0A2540] mb-1">Business Hours</h3>
-                    <p className="text-gray-600">Monday - Saturday: 10:00 AM - 7:00 PM<br/>Sunday: Closed</p>
+                    <h3 className="font-bold text-[#0A2540] mb-1">{contact.hoursLabel}</h3>
+                    <p className="text-gray-600 whitespace-pre-line">{contact.hours}</p>
                   </div>
                 </div>
               </div>
@@ -125,7 +127,7 @@ export default function ContactPage() {
             <div className="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 relative">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/10 rounded-bl-full -z-10"></div>
               
-              <h2 className="text-2xl font-bold text-[#0A2540] mb-6">Send an Inquiry</h2>
+              <h2 className="text-2xl font-bold text-[#0A2540] mb-6">{contact.formTitle}</h2>
               
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
