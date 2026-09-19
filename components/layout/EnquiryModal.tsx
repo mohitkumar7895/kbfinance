@@ -91,7 +91,7 @@ export default function EnquiryModal({
             </div>
             <div className="space-y-2">
               <Label htmlFor="modal-phone">Mobile Number *</Label>
-              <Input id="modal-phone" {...register("phone", { required: true })} placeholder="9876543210" />
+              <Input id="modal-phone" {...register("phone", { required: true })} placeholder="831 876 3728" />
               {errors.phone && <span className="text-xs text-red-500">Required</span>}
             </div>
           </div>

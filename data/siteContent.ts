@@ -266,7 +266,7 @@ export const defaultSiteContent: SiteContent = {
     addressLabel: "Office Address",
     address: "1st Floor, National Market, Andhrapool, Varanasi, U.P. – 221002",
     phoneLabel: "Phone Number",
-    phone: "7081000063",
+    phone: "831 876 3728",
     emailLabel: "Email Address",
     email: "FINANCESERVICESKB@GMAIL.COM",
     hoursLabel: "Business Hours",

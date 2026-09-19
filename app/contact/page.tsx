@@ -138,7 +138,7 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Mobile Number *</Label>
-                    <Input id="phone" {...register("phone", { required: true })} placeholder="9876543210" />
+                    <Input id="phone" {...register("phone", { required: true })} placeholder="831 876 3728" />
                     {errors.phone && <span className="text-xs text-red-500">Phone is required</span>}
                   </div>
                 </div>
