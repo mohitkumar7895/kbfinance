@@ -1,21 +1,27 @@
 import Hero from "@/components/home/Hero";
 import Stats from "@/components/home/Stats";
+import AboutSnippet from "@/components/home/AboutSnippet";
 import Services from "@/components/home/Services";
-import Calculator from "@/components/home/Calculator";
 import Workflow from "@/components/home/Workflow";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
-import AboutSnippet from "@/components/home/AboutSnippet";
+import Testimonials from "@/components/home/Testimonials";
+import FAQ from "@/components/home/FAQ";
+import MeetFounder from "@/components/home/MeetFounder";
+import OurPartners from "@/components/home/OurPartners";
 
 export default function Home() {
   return (
     <>
       <Hero />
       <Stats />
-      <Services />
-      <Calculator />
-      <Workflow />
-      <WhyChooseUs />
       <AboutSnippet />
+      <Services />
+      <Workflow />
+      <MeetFounder />
+      <WhyChooseUs />
+      <Testimonials />
+      <FAQ />
+      <OurPartners />
     </>
   );
 }

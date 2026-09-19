@@ -51,7 +51,7 @@ export default function Calculator() {
   };
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section id="calculator" className="py-10 bg-white relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none"></div>
       

@@ -5,12 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import EnquiryModal from "./EnquiryModal";
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Loans", href: "/loans" },
+  { name: "Why Us", href: "/#why-us" },
+  { name: "Testimonials", href: "/#testimonials" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "Calculator", href: "/calculator" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -80,7 +85,7 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-2 lg:flex">
-            <Link
+            {/* <Link
               href="/login"
               className={`inline-flex h-8 items-center rounded-lg px-3 text-sm font-medium ${
                 transparent
@@ -89,13 +94,11 @@ export default function Navbar() {
               }`}
             >
               Login
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex h-8 items-center rounded-full bg-[#1952B3] px-5 text-sm font-medium text-white hover:bg-[#0A2540]"
-            >
-              Get Started
-            </Link>
+            </Link> */}
+            <EnquiryModal 
+              triggerText="Get Started"
+              triggerClassName="inline-flex h-8 items-center rounded-full bg-[#1952B3] px-5 text-sm font-medium text-white hover:bg-[#0A2540]"
+            />
           </div>
 
           <button
@@ -129,20 +132,18 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="mt-2 flex flex-col gap-3 border-t pt-4">
-                <Link
+                {/* <Link
                   href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="inline-flex h-10 items-center justify-center rounded-lg border border-black/10 text-sm font-medium text-[#0A2540]"
                 >
                   Login
-                </Link>
-                <Link
-                  href="/contact"
+                </Link> */}
+                <EnquiryModal
+                  triggerText="Get Started"
+                  triggerClassName="inline-flex h-10 items-center justify-center rounded-full bg-[#1952B3] text-sm font-medium text-white hover:bg-[#0A2540] w-full"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="inline-flex h-10 items-center justify-center rounded-full bg-[#1952B3] text-sm font-medium text-white hover:bg-[#0A2540]"
-                >
-                  Get Started
-                </Link>
+                />
               </div>
             </div>
           </motion.div>

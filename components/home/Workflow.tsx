@@ -33,7 +33,7 @@ const steps = [
 
 export default function Workflow() {
   return (
-    <section className="py-24 bg-[#0A2540] text-white overflow-hidden relative">
+    <section id="workflow" className="py-10 bg-[#0A2540] text-white overflow-hidden relative">
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">

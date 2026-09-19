@@ -4,17 +4,17 @@ import pool from '@/lib/db';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, email, city, service, message } = body;
+    const { name, phone, email, city, message } = body;
 
-    if (!name || !phone || !city || !service) {
+    if (!name || !phone || !city) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const query = `
-      INSERT INTO contact_inquiries (name, phone, email, city, service_required, message)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO contact_inquiries (name, phone, email, city, message)
+      VALUES (?, ?, ?, ?, ?)
     `;
-    const values = [name, phone, email || null, city, service, message || null];
+    const values = [name, phone, email || null, city, message || null];
 
     const [result] = await pool.execute(query, values);
 

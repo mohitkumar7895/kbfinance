@@ -16,7 +16,6 @@ type FormData = {
   phone: string;
   email: string;
   city: string;
-  service: string;
   message: string;
   agree: boolean;
 };
@@ -154,22 +153,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="service">Service Required *</Label>
-                  <Select onValueChange={(val: string | null) => { if (val) setValue("service", val); }} required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a service" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Personal Loan">Personal Loan</SelectItem>
-                      <SelectItem value="Business Loan">Business Loan</SelectItem>
-                      <SelectItem value="Home Loan">Home Loan</SelectItem>
-                      <SelectItem value="Vehicle Loan">Vehicle Loan</SelectItem>
-                      <SelectItem value="Financial Planning">Financial Planning</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>

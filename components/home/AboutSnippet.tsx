@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function AboutSnippet() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-10 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
@@ -16,14 +16,9 @@ export default function AboutSnippet() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* Real Generated Premium Business Owner Image */}
+            {/* About Us Company Image */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5] flex items-center justify-center border border-gray-100">
-               <div className="absolute inset-0 bg-[url('/images/about.jpg')] bg-cover bg-center"></div>
-               <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540]/80 via-transparent to-transparent"></div>
-               <div className="absolute bottom-8 left-8 right-8 text-white z-10">
-                 <p className="font-bold text-xl">Sanjay Kumar Rawat</p>
-                 <p className="text-blue-200 text-sm">Business Owner, K B Financial Services</p>
-               </div>
+               <div className="absolute inset-0 bg-[url('/images/about.jpg')] bg-cover bg-center transition-transform duration-500 hover:scale-105"></div>
             </div>
           </motion.div>
 
@@ -48,6 +43,11 @@ export default function AboutSnippet() {
               <p>
                 Whether you're looking for personal financial support, looking to expand your business, or seeking guidance on securing a home loan, we are here to simplify the process and connect you with the right solutions.
               </p>
+            </div>
+
+            <div className="mb-8 border-l-4 border-[#D4AF37] pl-4 bg-gray-50 py-3 pr-4 rounded-r-lg">
+              <h4 className="text-[#0A2540] font-bold mb-1">Our Mission</h4>
+              <p className="text-gray-600 text-sm">To empower our clients with transparent financial guidance and seamless service, ensuring their long-term growth and success.</p>
             </div>
 
             <Link href="/about">

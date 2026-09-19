@@ -3,9 +3,9 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#061526] text-gray-300 pt-10 pb-6 md:pt-16 md:pb-8">
+    <footer className="bg-[#061526] text-gray-300 py-6 md:py-8">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8 md:mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
           {/* Column 1: About */}
           <div>
             <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6">
@@ -79,7 +79,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-6 mt-6 md:pt-8 md:mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-gray-700 pt-4 mt-4 md:pt-6 md:mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[10px] md:text-xs text-gray-500">
             &copy; {new Date().getFullYear()} K B Financial Services. All Rights Reserved.
           </p>
