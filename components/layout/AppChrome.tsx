@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingActions from "@/components/layout/FloatingActions";
 import { SiteContentProvider } from "@/components/content/SiteContentProvider";
 import type { SiteContent } from "@/data/siteContent";
 import { defaultSiteContent } from "@/data/siteContent";
@@ -26,6 +27,7 @@ export default function AppChrome({
       <Navbar />
       <main className="flex-1 pt-[72px]">{children}</main>
       <Footer />
+      <FloatingActions />
     </SiteContentProvider>
   );
 }
