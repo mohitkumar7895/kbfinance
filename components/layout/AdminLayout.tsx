@@ -16,6 +16,7 @@ const sidebarNavItems = [
   { title: "Customers", icon: <Users className="w-5 h-5" />, href: "/admin/customers" },
   { title: "Applications", icon: <FileText className="w-5 h-5" />, href: "/admin/applications" },
   { title: "Enquiries", icon: <Activity className="w-5 h-5" />, href: "/admin/enquiries" },
+  { title: "Services", icon: <FileText className="w-5 h-5" />, href: "/admin/services" },
   { title: "Settings", icon: <Settings className="w-5 h-5" />, href: "/admin/settings" },
 ];
 

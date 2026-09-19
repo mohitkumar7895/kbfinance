@@ -83,7 +83,7 @@ export default function EnquiryModal({
         </DialogHeader>
         
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="modal-name">Full Name *</Label>
               <Input id="modal-name" {...register("name", { required: true })} placeholder="John Doe" />
@@ -96,7 +96,7 @@ export default function EnquiryModal({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="modal-email">Email Address</Label>
               <Input id="modal-email" type="email" {...register("email")} placeholder="john@example.com" />

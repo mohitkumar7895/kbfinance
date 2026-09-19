@@ -1,66 +1,25 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import EnquiryModal from "@/components/layout/EnquiryModal";
+import pool from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Services | K B Financial Services",
   description: "Explore our wide range of financial services including Investment, Insurance, Tax Planning, and Loans in Varanasi.",
 };
 
-const allServices = [
-  {
-    id: "investment",
-    title: "Investment Planning",
-    subtitle: "Maximize returns with customized investment strategies in stocks, mutual funds, and more.",
-    bullets: [
-      "Mutual Fund Advisory",
-      "Stock Market Insights",
-      "Real Estate Investment Guidance"
-    ],
-    buttonText: "Start Investing Today!",
-    image: "/images/service-investment.jpg"
-  },
-  {
-    id: "insurance",
-    title: "Insurance & Risk Management",
-    subtitle: "Safeguard your family and assets with the right insurance policies.",
-    bullets: [
-      "Life Insurance",
-      "Health & Medical Insurance",
-      "Property & Business Insurance"
-    ],
-    buttonText: "Find the Best Insurance Plan!",
-    image: "/images/service-insurance.jpg"
-  },
-  {
-    id: "tax",
-    title: "Tax & Retirement Planning",
-    subtitle: "Smart tax-saving investments and retirement plans for a worry-free future.",
-    bullets: [
-      "Income Tax Planning",
-      "Retirement Corpus Planning",
-      "EPF, PPF, and Pension Advisory"
-    ],
-    buttonText: "Plan for a Secure Retirement!",
-    image: "/images/service-tax.jpg"
-  },
-  {
-    id: "loans",
-    title: "Loans & Credit Advisory",
-    subtitle: "Get the best deals on home loans, personal loans, and business credit solutions.",
-    bullets: [
-      "Home & Auto Loans",
-      "Business & Personal Loans",
-      "Credit Score Improvement"
-    ],
-    buttonText: "Find the Best Loan Options!",
-    image: "/images/service-loans.jpg"
+export default async function ServicesPage() {
+  let services = [];
+  try {
+    const [rows] = await pool.query('SELECT * FROM services ORDER BY created_at ASC');
+    services = (rows as any[]).map(row => ({
+      ...row,
+      bullets: typeof row.bullets === 'string' ? JSON.parse(row.bullets) : row.bullets
+    }));
+  } catch (err) {
+    console.error("Failed to fetch services:", err);
   }
-];
 
-export default function ServicesPage() {
   return (
     <div className="bg-[#F8FAFC]">
       {/* Hero Section */}
@@ -77,7 +36,7 @@ export default function ServicesPage() {
       <section className="py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {allServices.map((service) => (
+            {services.map((service: any) => (
               <div
                 key={service.id}
                 id={service.id}
@@ -99,7 +58,7 @@ export default function ServicesPage() {
                     "{service.subtitle}"
                   </p>
                   <ul className="mb-10 space-y-3 flex-grow">
-                    {service.bullets.map((bullet, i) => (
+                    {service.bullets.map((bullet: string, i: number) => (
                       <li key={i} className="flex items-start text-base text-[#0A2540]/90">
                         <span className="mr-3 text-[#0A2540] text-[10px] mt-2">●</span>
                         {bullet}
@@ -107,16 +66,18 @@ export default function ServicesPage() {
                     ))}
                   </ul>
                   
-                  <Link href={`/contact?service=${service.id}`} className="w-full">
-                    <Button className="w-full bg-[#1952B3] hover:bg-[#123e8a] text-white rounded-full py-7 text-base font-semibold transition-colors duration-300 group">
-                      {service.buttonText}
-                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
+                  <EnquiryModal
+                    triggerText={service.buttonText}
+                    triggerClassName="w-full bg-[#1952B3] hover:bg-[#123e8a] text-white rounded-full py-4 md:py-7 text-base font-semibold transition-colors duration-300 group"
+                  />
                 </div>
               </div>
             ))}
           </div>
+
+          {services.length === 0 && (
+            <div className="text-center py-10 text-gray-500">No services found.</div>
+          )}
 
           <div className="mt-20 text-center text-sm text-gray-500 max-w-4xl mx-auto border-t pt-8">
             * All products and services are subject to eligibility criteria, submission of required documentation, and the final decision of the respective lenders or financial institutions. K B Financial Services provides guidance and assistance to facilitate the process.

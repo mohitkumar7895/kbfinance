@@ -8,14 +8,26 @@ import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 import MeetFounder from "@/components/home/MeetFounder";
 import OurPartners from "@/components/home/OurPartners";
+import pool from "@/lib/db";
 
-export default function Home() {
+export default async function Home() {
+  let services = [];
+  try {
+    const [rows] = await pool.query('SELECT * FROM services ORDER BY created_at ASC');
+    services = (rows as any[]).map(row => ({
+      ...row,
+      bullets: typeof row.bullets === 'string' ? JSON.parse(row.bullets) : row.bullets
+    }));
+  } catch (err) {
+    console.error("Failed to fetch services for home:", err);
+  }
+
   return (
     <>
       <Hero />
       <Stats />
       <AboutSnippet />
-      <Services />
+      <Services services={services} />
       <Workflow />
       <MeetFounder />
       <WhyChooseUs />

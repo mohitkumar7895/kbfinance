@@ -2,57 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import EnquiryModal from "@/components/layout/EnquiryModal";
 
-const services = [
-  {
-    title: "Investment Planning",
-    subtitle: "Maximize returns with customized investment strategies in stocks, mutual funds, and more.",
-    bullets: [
-      "Mutual Fund Advisory",
-      "Stock Market Insights",
-      "Real Estate Investment Guidance"
-    ],
-    buttonText: "Start Investing Today!",
-    image: "/images/service-investment.jpg"
-  },
-  {
-    title: "Insurance & Risk Management",
-    subtitle: "Safeguard your family and assets with the right insurance policies.",
-    bullets: [
-      "Life Insurance",
-      "Health & Medical Insurance",
-      "Property & Business Insurance"
-    ],
-    buttonText: "Find the Best Insurance Plan!",
-    image: "/images/service-insurance.jpg"
-  },
-  {
-    title: "Tax & Retirement Planning",
-    subtitle: "Smart tax-saving investments and retirement plans for a worry-free future.",
-    bullets: [
-      "Income Tax Planning",
-      "Retirement Corpus Planning",
-      "EPF, PPF, and Pension Advisory"
-    ],
-    buttonText: "Plan for a Secure Retirement!",
-    image: "/images/service-tax.jpg"
-  },
-  {
-    title: "Loans & Credit Advisory",
-    subtitle: "Get the best deals on home loans, personal loans, and business credit solutions.",
-    bullets: [
-      "Home & Auto Loans",
-      "Business & Personal Loans",
-      "Credit Score Improvement"
-    ],
-    buttonText: "Find the Best Loan Options!",
-    image: "/images/service-loans.jpg"
-  }
-];
-
-export default function Services() {
+export default function Services({ services }: { services: any[] }) {
   return (
     <section id="services" className="py-10 bg-[#F8FAFC]">
       <div className="container mx-auto px-4 md:px-6">
@@ -66,7 +18,7 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
           {services.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.id || index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -89,7 +41,7 @@ export default function Services() {
                   "{service.subtitle}"
                 </p>
                 <ul className="mb-8 space-y-2.5 flex-grow">
-                  {service.bullets.map((bullet, i) => (
+                  {service.bullets.map((bullet: string, i: number) => (
                     <li key={i} className="flex items-start text-sm text-[#0A2540]/90">
                       <span className="mr-2.5 text-[#0A2540] text-[8px] mt-1.5">●</span>
                       {bullet}

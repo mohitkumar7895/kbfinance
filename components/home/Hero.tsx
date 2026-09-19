@@ -42,7 +42,7 @@ export default function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
@@ -51,7 +51,7 @@ export default function Hero() {
 
   return (
     <section className="relative -mt-[72px] h-[100svh] w-full overflow-hidden bg-[#061526]">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {heroSlides.map((slide, index) => (
           index === currentSlide && (
             <motion.div
@@ -59,7 +59,7 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0 z-0"
             >
               <Image
@@ -82,11 +82,11 @@ export default function Hero() {
             index === currentSlide && (
               <motion.div
                 key={`text-${slide.id}`}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="max-w-3xl"
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="max-w-3xl absolute"
               >
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-md mb-6 uppercase tracking-wider font-medium">
                   {slide.title}
