@@ -48,6 +48,7 @@ export default function Hero() {
                 alt={item.title}
                 fill
                 priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
                 sizes="100vw"
                 unoptimized={item.image?.startsWith("http")}
                 className="object-cover"

@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "K B Financial Services | Financial Solutions in Varanasi",
   description: "K B Financial Services provides customer-focused financial assistance and guidance in Varanasi, Uttar Pradesh. Explore financial solutions, loan assistance and enquiry services.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default async function RootLayout({
