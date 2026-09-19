@@ -63,13 +63,14 @@ export default function Hero() {
               className="absolute inset-0 z-0"
             >
               <Image
-                src={slide.image}
-                alt={slide.title}
-                fill
-                priority={index === 0}
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#061526]/90 via-[#061526]/60 to-transparent" />
+                      src={slide.image}
+                      alt={slide.title}
+                      fill
+                      priority={index === 0}
+                      sizes="100vw"
+                      loading={slide.id===3 ? "eager" : "lazy"}
+                      className="object-cover"
+                    />           <div className="absolute inset-0 bg-gradient-to-r from-[#061526]/90 via-[#061526]/60 to-transparent" />
               <div className="absolute inset-0 bg-black/30" />
             </motion.div>
           )
