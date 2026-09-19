@@ -40,7 +40,7 @@ export default function AdminServicesPage() {
     fetchServices();
   }, []);
 
-  const openModal = (service = null) => {
+  const openModal = (service: any = null) => {
     if (service) {
       setCurrentService(service);
       setFormData({
