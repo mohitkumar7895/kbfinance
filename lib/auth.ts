@@ -3,6 +3,21 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
+import { ensureDefaultAdmin } from "@/lib/auth-db";
+
+if (!process.env.NEXTAUTH_URL && process.env.VERCEL_URL) {
+  process.env.NEXTAUTH_URL = `https://${process.env.VERCEL_URL}`;
+}
+
+const authSecret =
+  process.env.NEXTAUTH_SECRET || "default_secret_for_development_only";
+
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: "lax" as const,
+  path: "/",
+  secure: false,
+};
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,6 +31,8 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Missing email or password");
         }
+
+        await ensureDefaultAdmin();
 
         const [rows] = await pool.execute<RowDataPacket[]>(
           "SELECT * FROM users WHERE email = ?",
@@ -67,5 +84,19 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET || "default_secret_for_development_only",
+  secret: authSecret,
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: cookieOptions,
+    },
+    callbackUrl: {
+      name: "next-auth.callback-url",
+      options: cookieOptions,
+    },
+    csrfToken: {
+      name: "next-auth.csrf-token",
+      options: cookieOptions,
+    },
+  },
 };

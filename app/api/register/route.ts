@@ -2,10 +2,12 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { RowDataPacket } from 'mysql2';
+import { ensureAuthTables } from '@/lib/auth-db';
 
 export async function POST(request: Request) {
   try {
     const { name, email, password } = await request.json();
+    await ensureAuthTables();
 
     if (!name || !email || !password) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });

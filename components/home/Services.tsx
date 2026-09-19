@@ -3,15 +3,17 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import EnquiryModal from "@/components/layout/EnquiryModal";
+import { useSiteContent } from "@/components/content/SiteContentProvider";
 
 export default function Services({ services }: { services: any[] }) {
+  const { services: servicesCopy } = useSiteContent();
   return (
     <section id="services" className="py-10 bg-[#F8FAFC]">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-bold text-[#D4AF37] tracking-widest uppercase mb-3">Our Services</h2>
+          <h2 className="text-sm font-bold text-[#D4AF37] tracking-widest uppercase mb-3">{servicesCopy.eyebrow}</h2>
           <h3 className="text-3xl md:text-4xl font-bold text-[#0A2540] mb-6">
-            Helping You Build Wealth & Security
+            {servicesCopy.title}
           </h3>
         </div>
 
@@ -31,7 +33,7 @@ export default function Services({ services }: { services: any[] }) {
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    unoptimized={service.image?.startsWith("http")}
                   />
                 </div>
               </div>

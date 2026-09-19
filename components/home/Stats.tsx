@@ -1,40 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Layers, Shield, ClipboardList, CreditCard } from "lucide-react";
-
-const stats = [
-  {
-    icon: Layers,
-    title: "Investment Planning",
-    description: '"Smart investment strategies tailored to your goals."',
-  },
-  {
-    icon: Shield,
-    title: "Insurance Advisory",
-    description: '"Protect what matters most with expert guidance."',
-  },
-  {
-    icon: ClipboardList,
-    title: "Tax & Retirement\nPlanning",
-    description: '"Secure your golden years with smart tax-saving investments."',
-  },
-  {
-    icon: CreditCard,
-    title: "Loan & Credit Advisory",
-    description: '"Get the best financial support for your personal and business needs."',
-  },
-];
+import { useSiteContent } from "@/components/content/SiteContentProvider";
+import { getSectionIcon } from "@/lib/sectionIcons";
 
 export default function Stats() {
+  const { highlights } = useSiteContent();
+
   return (
     <section className="relative z-20 mt-12 px-4 md:mx-auto md:max-w-7xl md:px-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat, index) => {
-          const Icon = stat.icon;
+        {highlights.items.map((stat, index) => {
+          const Icon = getSectionIcon(stat.icon);
           return (
             <motion.div
-              key={stat.title}
+              key={`${stat.title}-${index}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

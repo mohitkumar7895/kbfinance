@@ -3,13 +3,31 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 const publicAdminPaths = new Set(["/admin/login", "/admin/register"]);
+const authSecret =
+  process.env.NEXTAUTH_SECRET || "default_secret_for_development_only";
+
+async function readSessionToken(request: NextRequest) {
+  const cookieNames = [
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+  ];
+
+  for (const cookieName of cookieNames) {
+    const token = await getToken({
+      req: request,
+      secret: authSecret,
+      cookieName,
+      secureCookie: cookieName.startsWith("__Secure-"),
+    });
+    if (token) return token;
+  }
+
+  return null;
+}
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET || "default_secret_for_development_only",
-  });
+  const token = await readSessionToken(request);
 
   if (pathname.startsWith("/admin") && !publicAdminPaths.has(pathname)) {
     if (!token || token.role !== "ADMIN") {
