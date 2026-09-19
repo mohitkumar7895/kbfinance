@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
-import { ensureDefaultAdmin } from "@/lib/auth-db";
+import { ensureDefaultAdmin, isEnvAdmin, envAdminCredentials } from "@/lib/auth-db";
 
 if (!process.env.NEXTAUTH_URL && process.env.VERCEL_URL) {
   process.env.NEXTAUTH_URL = `https://${process.env.VERCEL_URL}`;
@@ -32,6 +32,16 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Missing email or password");
         }
 
+        if (isEnvAdmin(credentials.email, credentials.password)) {
+          const admin = envAdminCredentials();
+          return {
+            id: "1",
+            name: "KB Admin",
+            email: admin.email,
+            role: "ADMIN",
+          };
+        }
+
         await ensureDefaultAdmin();
 
         const [rows] = await pool.execute<RowDataPacket[]>(
@@ -57,7 +67,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id.toString(),
           name: user.name,
           email: user.email,
-          role: user.role,
+          role: String(user.role || "USER").toUpperCase(),
         };
       },
     }),
@@ -85,6 +95,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   secret: authSecret,
+  useSecureCookies: false,
   cookies: {
     sessionToken: {
       name: "next-auth.session-token",

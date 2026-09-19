@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { RowDataPacket } from 'mysql2';
-import { ensureAuthTables } from '@/lib/auth-db';
+import { dbErrorMessage, ensureAuthTables } from '@/lib/auth-db';
 
 export async function POST(request: Request) {
   try {
@@ -33,15 +33,18 @@ export async function POST(request: Request) {
 
     const userId = (result as any).insertId;
 
-    // Create empty customer profile
-    await pool.execute(
-      'INSERT INTO customers (user_id) VALUES (?)',
-      [userId]
-    );
+    try {
+      await pool.execute(
+        'INSERT INTO customers (user_id) VALUES (?)',
+        [userId]
+      );
+    } catch (profileError) {
+      console.error("Customer profile create skipped:", profileError);
+    }
 
     return NextResponse.json({ success: true, message: 'User registered successfully' }, { status: 201 });
   } catch (error) {
     console.error('Registration error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: dbErrorMessage(error) }, { status: 500 });
   }
 }

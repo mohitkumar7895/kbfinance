@@ -1,4 +1,4 @@
-import pool from "@/lib/db";
+import pool, { withTimeout } from "@/lib/db";
 import { defaultSiteContent, type SiteContent } from "@/data/siteContent";
 
 const CONTENT_KEY = "site_content";
@@ -56,10 +56,10 @@ export function mergeSiteContent(stored?: Partial<SiteContent> | null): SiteCont
 
 export async function getSiteContent(): Promise<SiteContent> {
   try {
-    await ensureSettingsTable();
-    const [rows] = await pool.execute(
-      "SELECT setting_value FROM settings WHERE setting_key = ?",
-      [CONTENT_KEY]
+    await withTimeout(ensureSettingsTable(), 8000);
+    const [rows] = await withTimeout(
+      pool.execute("SELECT setting_value FROM settings WHERE setting_key = ?", [CONTENT_KEY]),
+      8000
     );
     const row = (rows as any[])[0];
     if (!row?.setting_value) return defaultSiteContent;

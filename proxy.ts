@@ -26,7 +26,7 @@ async function readSessionToken(request: NextRequest) {
 }
 
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const pathname = request.nextUrl.pathname.replace(/\/$/, "") || "/";
   const token = await readSessionToken(request);
 
   if (pathname.startsWith("/admin") && !publicAdminPaths.has(pathname)) {

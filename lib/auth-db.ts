@@ -5,6 +5,18 @@ import { RowDataPacket } from "mysql2";
 export const DEFAULT_ADMIN_EMAIL = "admin@kbfinancial.in";
 export const DEFAULT_ADMIN_PASSWORD = "AdminPassword123!";
 
+export function envAdminCredentials() {
+  return {
+    email: (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).trim().toLowerCase(),
+    password: process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD,
+  };
+}
+
+export function isEnvAdmin(email: string, password: string) {
+  const admin = envAdminCredentials();
+  return email.trim().toLowerCase() === admin.email && password === admin.password;
+}
+
 export async function ensureAuthTables() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
@@ -17,6 +29,12 @@ export async function ensureAuthTables() {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
+
+  try {
+    await pool.query("ALTER TABLE users ADD COLUMN role VARCHAR(20) DEFAULT 'USER'");
+  } catch {
+    // column already exists
+  }
 
   try {
     await pool.query(`
@@ -41,7 +59,7 @@ export async function ensureDefaultAdmin() {
   await ensureAuthTables();
 
   const [admins] = await pool.execute<RowDataPacket[]>(
-    "SELECT id FROM users WHERE role = 'ADMIN' LIMIT 1"
+    "SELECT id FROM users WHERE UPPER(role) = 'ADMIN' LIMIT 1"
   );
 
   if (admins.length > 0) return;
@@ -67,8 +85,11 @@ export async function ensureDefaultAdmin() {
 
 export function dbErrorMessage(error: unknown) {
   const err = error as { code?: string; message?: string };
+  if (err?.message === "DB timeout") {
+    return "Database timed out. Vercel cannot reach your MySQL host. Allow remote MySQL (%) and use a public DB_HOST, not localhost.";
+  }
   if (err?.code === "ECONNREFUSED" || err?.code === "ENOTFOUND" || err?.code === "ETIMEDOUT") {
-    return "Database connection failed. Set DB_HOST, DB_USER, DB_PASSWORD, DB_NAME on Vercel.";
+    return "Database connection failed. DB_HOST must be a public MySQL host (not localhost), and remote access must be allowed.";
   }
   if (err?.code === "ER_ACCESS_DENIED_ERROR") {
     return "Database login failed. Check DB_USER and DB_PASSWORD on Vercel.";

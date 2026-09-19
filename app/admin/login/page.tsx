@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ShieldAlert, Loader2, ArrowLeft } from "lucide-react";
@@ -17,6 +17,16 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [dbStatus, setDbStatus] = useState("");
+
+  useEffect(() => {
+    fetch("/api/health")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.db) setDbStatus(data.error || "Database is not connected on live.");
+      })
+      .catch(() => setDbStatus("Could not reach server health check."));
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,6 +102,11 @@ export default function AdminLogin() {
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
+            {dbStatus && (
+              <p className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2">
+                {dbStatus} Admin login still works after deploy with the setup admin email/password. Register needs a reachable MySQL database.
+              </p>
+            )}
             <div className="space-y-2">
               <Label className="text-blue-100">Administrator Email</Label>
               <Input
