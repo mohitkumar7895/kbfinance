@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
+import pool from '@/lib/db';
 import { initialServices } from '@/data/servicesSeed';
-
 export async function GET() {
   try {
     // Ensure table exists
