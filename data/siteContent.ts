@@ -268,7 +268,7 @@ export const defaultSiteContent: SiteContent = {
     phoneLabel: "Phone Number",
     phone: "831 876 3728",
     emailLabel: "Email Address",
-    email: "FINANCESERVICESKB@GMAIL.COM",
+    email: "FINANCESERVICESKB@GMAIL.COM\nsupport@kbfinance.in.net\nbranch@kbfinance.in.net",
     hoursLabel: "Business Hours",
     hours: "Monday - Saturday: 10:00 AM - 7:00 PM\nSunday: Closed",
     formTitle: "Send an Inquiry",

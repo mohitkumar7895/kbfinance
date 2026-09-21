@@ -43,7 +43,13 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">{contact.emailLabel}</h4>
-                  <p className="text-[#1952B3]">{contact.email}</p>
+                  <div className="text-[#1952B3] flex flex-col gap-1">
+                    {contact.email.split('\n').map((e, i) => (
+                      <a key={i} href={`mailto:${e.trim()}`} className="hover:underline">
+                        {e.trim()}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

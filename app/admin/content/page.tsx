@@ -466,7 +466,7 @@ export default function WebsiteContentPage() {
                 <Field label="Phone label" value={content.contact.phoneLabel} onChange={(v) => setContent({ ...content, contact: { ...content.contact, phoneLabel: v } })} />
                 <Field label="Phone" value={content.contact.phone} onChange={(v) => setContent({ ...content, contact: { ...content.contact, phone: v } })} />
                 <Field label="Email label" value={content.contact.emailLabel} onChange={(v) => setContent({ ...content, contact: { ...content.contact, emailLabel: v } })} />
-                <Field label="Email" value={content.contact.email} onChange={(v) => setContent({ ...content, contact: { ...content.contact, email: v } })} />
+                <Field label="Email" textarea value={content.contact.email} onChange={(v) => setContent({ ...content, contact: { ...content.contact, email: v } })} />
                 <Field label="Hours label" value={content.contact.hoursLabel} onChange={(v) => setContent({ ...content, contact: { ...content.contact, hoursLabel: v } })} />
                 <Field label="Hours" textarea value={content.contact.hours} onChange={(v) => setContent({ ...content, contact: { ...content.contact, hours: v } })} />
                 <Field label="Form title" value={content.contact.formTitle} onChange={(v) => setContent({ ...content, contact: { ...content.contact, formTitle: v } })} />

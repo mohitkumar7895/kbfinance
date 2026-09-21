@@ -107,7 +107,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-[#0A2540] mb-1">{contact.emailLabel}</h3>
-                    <p className="text-[#1952B3]">{contact.email}</p>
+                    <div className="text-[#1952B3] flex flex-col gap-1">
+                      {contact.email.split('\n').map((e, i) => (
+                        <a key={i} href={`mailto:${e.trim()}`} className="hover:underline">
+                          {e.trim()}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
 

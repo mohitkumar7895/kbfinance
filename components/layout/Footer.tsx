@@ -52,11 +52,15 @@ export default function Footer() {
                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-[#D4AF37] shrink-0" />
                 <span>{contact.phone}</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 md:w-5 md:h-5 text-[#D4AF37] shrink-0" />
-                <a href={`mailto:${contact.email}`} className="hover:text-[#D4AF37] transition-colors">
-                  {contact.email}
-                </a>
+              <li className="flex items-start gap-3">
+                <Mail className="w-4 h-4 md:w-5 md:h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  {contact.email.split('\n').map((e, i) => (
+                    <a key={i} href={`mailto:${e.trim()}`} className="hover:text-[#D4AF37] transition-colors">
+                      {e.trim()}
+                    </a>
+                  ))}
+                </div>
               </li>
             </ul>
           </div>
