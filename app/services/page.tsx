@@ -38,14 +38,16 @@ export default async function ServicesPage() {
                 className="bg-[#e4ebf5] rounded-3xl overflow-hidden shadow-md flex flex-col border border-white/50 scroll-mt-24"
               >
                 <div className="relative h-72 md:h-80 w-full p-4 pb-0">
-                  <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-sm">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      unoptimized={service.image?.startsWith("http")}
-                      className="object-cover transition-transform duration-500 hover:scale-105"
-                    />
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-sm bg-[#e4ebf5]">
+                    {service.image ? (
+                      <Image
+                        src={service.image}
+                        alt={service.title || "Service"}
+                        fill
+                        unoptimized={service.image?.startsWith("http")}
+                        className="object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    ) : null}
                   </div>
                 </div>
                 <div className="p-8 md:p-10 flex flex-col flex-grow">

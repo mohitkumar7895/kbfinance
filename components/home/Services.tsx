@@ -28,14 +28,16 @@ export default function Services({ services }: { services: any[] }) {
               className="bg-[#e4ebf5] rounded-3xl overflow-hidden shadow-md flex flex-col border border-white/50"
             >
               <div className="relative h-64 md:h-72 w-full p-3 pb-0">
-                <div className="relative h-full w-full rounded-2xl overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    unoptimized={service.image?.startsWith("http")}
-                    className="object-cover hover:scale-105 transition-transform duration-500"
-                  />
+                <div className="relative h-full w-full rounded-2xl overflow-hidden bg-[#e4ebf5]">
+                  {service.image ? (
+                    <Image
+                      src={service.image}
+                      alt={service.title || "Service"}
+                      fill
+                      unoptimized={service.image?.startsWith("http")}
+                      className="object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : null}
                 </div>
               </div>
               <div className="p-6 md:p-8 flex flex-col flex-grow">

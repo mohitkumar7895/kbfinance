@@ -24,14 +24,16 @@ export default function OurPartners() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="relative w-full aspect-[21/9] md:aspect-[16/9] rounded-xl overflow-hidden shadow-sm border border-gray-200 group bg-gray-50 flex items-center justify-center"
             >
-              <img
-                src={partner.image}
-                alt={partner.name || `Partner ${index + 1}`}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
+              {partner.image ? (
+                <img
+                  src={partner.image}
+                  alt={partner.name || `Partner ${index + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              ) : null}
             </motion.div>
           ))}
         </div>
