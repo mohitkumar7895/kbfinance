@@ -2,8 +2,8 @@ import bcrypt from "bcryptjs";
 import pool from "@/lib/db";
 import { RowDataPacket } from "mysql2";
 
-export const DEFAULT_ADMIN_EMAIL = "admin@kbfinancial.in";
-export const DEFAULT_ADMIN_PASSWORD = "AdminPassword123!";
+export const DEFAULT_ADMIN_EMAIL = "financeserviceskb@gmail.com";
+export const DEFAULT_ADMIN_PASSWORD = "financekb@321";
 
 export function envAdminCredentials() {
   return {
