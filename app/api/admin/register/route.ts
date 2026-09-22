@@ -23,16 +23,7 @@ export async function POST(request: Request) {
 
     await ensureAuthTables();
 
-    const [admins] = await pool.execute<RowDataPacket[]>(
-      "SELECT id FROM users WHERE role = 'ADMIN' LIMIT 1"
-    );
 
-    if (admins.length > 0) {
-      return NextResponse.json(
-        { error: "Admin already exists. Please login instead." },
-        { status: 409 }
-      );
-    }
 
     const [existingUsers] = await pool.execute<RowDataPacket[]>(
       "SELECT id FROM users WHERE email = ?",
