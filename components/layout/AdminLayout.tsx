@@ -58,7 +58,7 @@ export default function AdminLayout({ children, title }: { children: React.React
           <span className="font-bold text-xl tracking-wide">Admin<span className="text-[#D4AF37]">Panel</span></span>
         </div>
 
-        <div className="flex-1 py-8 px-4 flex flex-col gap-2">
+        <div className="flex-1 py-8 px-4 flex flex-col gap-2 overflow-y-auto">
           {sidebarNavItems.map((item, index) => {
             const isActive = pathname === item.href;
             return (
